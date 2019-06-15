@@ -62,6 +62,7 @@ void remove_inicio (lista_pref_t *lista){
 		lista -> fim = NULL;
 		lista -> inicio = NULL;
 	}
+	lista->num_elementos--;
 	free(toFree);
 }
 
@@ -75,6 +76,7 @@ int remove_fim(lista_pref_t *lista) {
 		lista -> fim = NULL;
 		lista -> inicio = NULL;
 	}
+	lista->num_elementos--;
 	int id = toFree->pref_id;
 	free(toFree);
 	return(id);
@@ -83,12 +85,12 @@ int remove_fim(lista_pref_t *lista) {
 void print_lista_pref(lista_pref_t *lista){
 	pref_t *toVisit = lista -> inicio;
 	pref_t *toPrint;
-	//printf("chamou printar preferencia\n");
+	printf("chamou printar preferencia\n");
 
 	while (toVisit != NULL) {
 		toPrint = toVisit;
 		toVisit = toVisit->prox;
-		printf("%d\n", toPrint->pref_id);
+		printf("%d\n", (toPrint->pref_id)+1);
 	}
 }
 

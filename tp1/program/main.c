@@ -26,6 +26,7 @@ int main(int argc, const char **argv) {
         fscanf(arq_uni, "%d %d", &v, &n);
         vet_univ[i].vagas = v;
         vet_univ[i].nota_min = n;
+        printf("vagas %d universidade %d nota %d\n", v, i+1, n);
         vet_univ[i].lista_cand = cria_lista_pref();
     }
 
@@ -67,6 +68,12 @@ int main(int argc, const char **argv) {
             printf("%d\n", i+1); //imprimir o candidato e a universidade q ta alocada
         }
     }
+
+ /*   for(int i = 0; i < u; i++){
+        printf("universidade %d ", i+1);
+        print_lista_pref(vet_univ[i].lista_cand);
+    }
+*/
 
 
 //desalocando a memoria gasta
