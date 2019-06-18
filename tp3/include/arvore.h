@@ -10,8 +10,8 @@ typedef struct {
 
 arvore_t *cria_arvore(int quant_vert);
 int min(int valor1, int valor2);
-int vertex_cover(int pos_node, arvore_t *arvore);
 void print_arvore(arvore_t *arvore);
+void insere_arvore(arvore_t *arvore, int id_1, int id_2);
 void destroi_arvore (arvore_t *arvore);
 
 #endif

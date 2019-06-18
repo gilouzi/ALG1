@@ -66,6 +66,37 @@ void remove_inicio (lista_t *lista){
 	free(toFree);
 }
 
+void remove_no(lista_t *lista, int id){
+	node_t *toFree = lista -> inicio;
+
+	while(toFree != NULL){
+		if(toFree->id == id){
+			if(toFree->prev == NULL && toFree->prox != NULL){
+				lista->inicio = toFree->prox;
+				toFree->prox->prev = NULL;
+			}
+			else if(toFree->prev == NULL && toFree->prox == NULL){
+				lista->inicio = NULL;
+				lista->fim = NULL;
+			}
+			else if(toFree->prev != NULL && toFree->prox == NULL){
+				lista->fim = toFree->prev;
+				toFree->prev->prox = NULL;
+			}
+			else{
+				toFree->prox->prev = toFree->prev;
+				toFree->prev->prox = toFree->prox;
+			}
+			lista->num_elementos--;
+			free(toFree);
+			return;
+		}
+		else{
+			toFree = toFree->prox;
+		}
+	}
+}
+
 int remove_fim(lista_t *lista) {
 	node_t *toFree = lista -> fim;
 	if(toFree -> prev != NULL){
