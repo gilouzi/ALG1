@@ -56,24 +56,32 @@ int vertex_cover_arvore(int pos_node, arvore_t *arvore){
 }
 
 void vertex_cover_grafo(grafo_t *grafo){
+    int vert[grafo->quant_vert];
     lista_t *resultado = cria_lista();
-    while(grafo->quant_arestas != 0){
-        //vai calcular o vertice v1 que tem maior quantidade de arestas conectadas
-        int id_v1 = max_vertice(grafo);
 
-        //vai calcular o vertice v2 com maior quantidade de arestas dos que se conectam a v1
-        int id_v2 = max_vertice_conect(grafo, id_v1);
-
-        //vai remover todas as arestas que conectam com os vertices escolhidos
-        remove_vertice(grafo,id_v1);
-        remove_vertice(grafo,id_v2);
-
-        //guarda o valor dos vertices escolhidos
-        insere_no(resultado,id_v1,0);
-        insere_no(resultado,id_v2,0);
+    //inicializacao dos vertices como nao visitados
+    for(int i=0; i<grafo->quant_vert; i++){
+        vert[i] = 0;
     }
+
+    //vai andar por todas as arestas olhando se os vertices foram ou nao visitados
+    for(int i=0; i<grafo->quant_arestas; i++){
+        int id_v1 = grafo->arestas[i].v1;
+        int id_v2 = grafo->arestas[i].v2;
+        //se ambos nao tiverem sido visitados ainda serao escolhidos como parte da resposta
+        if(vert[id_v1] == 0 && vert[id_v2] == 0){
+            //guarda o valor dos vertices escolhidos
+            insere_no(resultado,id_v1,0);
+            insere_no(resultado,id_v2,0);
+            //coloca os vertices como visitados
+            vert[id_v1] = 1;
+            vert[id_v2] = 1;
+        }
+    }
+
     //imprime quantidade de vertices escolhidos e quais foram escolhidos
     printf("%d\n",resultado->num_elementos);
     print_id_lista(resultado);
+    destroi_lista(resultado);
 
 }

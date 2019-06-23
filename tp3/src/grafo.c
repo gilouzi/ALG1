@@ -14,17 +14,20 @@ grafo_t *cria_grafo(int quant_vert){
 	}
 
     grafo->quant_vert = quant_vert;
-	grafo->lista_adj = (lista_t **) malloc(sizeof(lista_t) * quant_vert);
-    for(int i = 0; i < quant_vert; i++){
-        grafo->lista_adj[i] = cria_lista();
-    }
+
+    grafo->arestas = (aresta_t *) malloc(sizeof(aresta_t));
+    if (grafo->arestas == NULL)
+	{
+		printf("Erro, sem memoria!\n");
+		exit(1);
+	}
 
     grafo->quant_arestas = 0;
 
 	return grafo;
 }
 
-int max_vertice(grafo_t *grafo){
+/*int max_vertice(grafo_t *grafo){
     lista_t **lista_adj = grafo->lista_adj;
     int id_max = 0;
     int quant_max = lista_adj[0]->num_elementos;
@@ -57,21 +60,25 @@ int max_vertice_conect(grafo_t *grafo, int id_v1){
     }
 
     return id_max;
-}
+}*/
 
-void insere_aresta(grafo_t *grafo, int id_1, int id_2, int peso){
+void insere_aresta(grafo_t *grafo, int id_1, int id_2){
 
-    lista_t *lista1 = grafo->lista_adj[id_1];
-    lista_t *lista2 = grafo->lista_adj[id_2];
-
-	insere_no(lista1, id_2, peso);
-    insere_no(lista2, id_1, peso);
-
+    grafo->arestas[grafo->quant_arestas].v1 = id_1;
+    grafo->arestas[grafo->quant_arestas].v2 = id_2;
     grafo->quant_arestas++;
 
+    aresta_t* aux = realloc(grafo->arestas, (grafo->quant_arestas + 1) * sizeof(aresta_t));
+    if (aux == NULL) {
+        printf("Erro, sem memoria!\n");
+        exit(1);
+    }
+
+    grafo->arestas = aux;
+
 }
 
-void remove_vertice(grafo_t *grafo, int id){
+/*void remove_vertice(grafo_t *grafo, int id){
     lista_t **lista_adj = grafo->lista_adj;
     lista_t *lista_id = grafo->lista_adj[id];
 
@@ -81,20 +88,17 @@ void remove_vertice(grafo_t *grafo, int id){
         remove_inicio(lista_id);
         grafo->quant_arestas--;
     }
-}
+}*/
 
-void print_grafo(grafo_t *grafo){
+/*void print_grafo(grafo_t *grafo){
     for(int i = 0; i < grafo->quant_vert; i++){
         printf("Vertice %d conecta com:\n",i);
         print_lista(grafo->lista_adj[i]);
         printf("\n");
     }
-}
+}*/
 
 void destroi_grafo (grafo_t *grafo){
-	for(int i = 0; i < grafo->quant_vert; i++){
-        destroi_lista(grafo->lista_adj[i]);
-    }
-    free(grafo->lista_adj);
+    free(grafo->arestas);
     free(grafo);
 }

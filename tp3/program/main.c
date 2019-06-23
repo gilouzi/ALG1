@@ -28,6 +28,7 @@ int main(int argc, const char **argv) {
 
         int resultado = vertex_cover_arvore(0,arvore);
         printf("%d\n",resultado);
+        print_arvore(arvore);
 
         destroi_arvore(arvore);
     }
@@ -36,7 +37,7 @@ int main(int argc, const char **argv) {
         grafo_t *grafo = cria_grafo(quant_vert);
         for(int i=0; i<quant_arestas; i++){
             fscanf(arq, "%d %d", &id_1, &id_2);
-            insere_aresta(grafo,id_1,id_2,-1);
+            insere_aresta(grafo,id_1,id_2);
         }
 
         if (grafo->quant_arestas != quant_arestas) {

@@ -35,7 +35,7 @@ void insere_arvore(arvore_t *arvore, int id_1, int id_2){
 
 void print_arvore(arvore_t *arvore){
     for(int i = 0; i < arvore->quant_vert; i++){
-        printf("Vertice %d conecta com:\n",i);
+        printf("Vertice %d com peso %d conecta com:\n",i, arvore->lista_adj[i]->inicio->peso);
         print_lista(arvore->lista_adj[i]);
         printf("\n");
     }
