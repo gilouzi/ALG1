@@ -124,6 +124,17 @@ void print_lista(lista_t *lista){
 	}
 }
 
+void print_id_lista(lista_t *lista){
+	node_t *toVisit = lista -> inicio;
+	node_t *toPrint;
+
+	while (toVisit != NULL) {
+		toPrint = toVisit;
+		toVisit = toVisit->prox;
+		printf("%d\n", toPrint->id);
+	}
+}
+
 void destroi_lista (lista_t *lista) {
 	node_t *toVisit = lista -> inicio;
 	node_t *toFree;

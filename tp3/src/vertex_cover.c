@@ -56,16 +56,24 @@ int vertex_cover_arvore(int pos_node, arvore_t *arvore){
 }
 
 void vertex_cover_grafo(grafo_t *grafo){
-
+    lista_t *resultado = cria_lista();
     while(grafo->quant_arestas != 0){
-        //vai calcular o vertice que tem maior quantidade de arestas conectadas
-        int id_max = max_vertice(grafo);
+        //vai calcular o vertice v1 que tem maior quantidade de arestas conectadas
+        int id_v1 = max_vertice(grafo);
 
-        //vai remover todas as arestas que conectam com o vertice escolhido
-        remove_vertice(grafo,id_max);
+        //vai calcular o vertice v2 com maior quantidade de arestas dos que se conectam a v1
+        int id_v2 = max_vertice_conect(grafo, id_v1);
 
-        //imprime o valor do vertice escolhido
-        printf("%d\n", id_max);
+        //vai remover todas as arestas que conectam com os vertices escolhidos
+        remove_vertice(grafo,id_v1);
+        remove_vertice(grafo,id_v2);
+
+        //guarda o valor dos vertices escolhidos
+        insere_no(resultado,id_v1,0);
+        insere_no(resultado,id_v2,0);
     }
+    //imprime quantidade de vertices escolhidos e quais foram escolhidos
+    printf("%d\n",resultado->num_elementos);
+    print_id_lista(resultado);
 
 }

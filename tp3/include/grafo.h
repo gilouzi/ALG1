@@ -11,6 +11,7 @@ typedef struct {
 
 grafo_t *cria_grafo(int quant_vert);
 int max_vertice(grafo_t *grafo);
+int max_vertice_conect(grafo_t *grafo, int id_v1);
 void insere_aresta(grafo_t *grafo, int id_1, int id_2, int peso);
 void remove_vertice(grafo_t *grafo, int id);
 void print_grafo(grafo_t *grafo);

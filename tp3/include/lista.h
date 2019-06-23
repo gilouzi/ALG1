@@ -20,6 +20,7 @@ void remove_inicio (lista_t *lista);
 void remove_no(lista_t *lista, int id);
 int remove_fim(lista_t *lista);
 void print_lista(lista_t *lista);
+void print_id_lista(lista_t *lista);
 void destroi_lista(lista_t *lista);
 
 #endif

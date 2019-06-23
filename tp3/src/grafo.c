@@ -39,6 +39,26 @@ int max_vertice(grafo_t *grafo){
     return id_max;
 }
 
+int max_vertice_conect(grafo_t *grafo, int id_v1){
+    lista_t **lista_adj = grafo->lista_adj;
+    lista_t *lista_v1 = lista_adj[id_v1];
+    int id_max = lista_v1->inicio->id;
+    int quant_max = lista_adj[id_max]->num_elementos;
+    node_t *toVisit = lista_v1->inicio->prox;
+
+    while(toVisit != NULL){
+        int id = toVisit->id;
+        int num_elementos = lista_adj[id]->num_elementos;
+        if(quant_max < num_elementos){
+            id_max = id;
+            quant_max = num_elementos;
+        }
+        toVisit = toVisit->prox;
+    }
+
+    return id_max;
+}
+
 void insere_aresta(grafo_t *grafo, int id_1, int id_2, int peso){
 
     lista_t *lista1 = grafo->lista_adj[id_1];
