@@ -12,24 +12,31 @@ int min(int valor1, int valor2){
         return valor2;
 }
 
-int vertex_cover_arvore(int pos_node, arvore_t *arvore){
-    lista_t *lista_node = arvore->lista_adj[pos_node];
-    node_t *node = lista_node->inicio;
+int vertex_cover_arvore(int pos_pai, arvore_t *arvore){
+    lista_t *lista_node = arvore->lista_adj[pos_pai];
+    node_t *pai = lista_node->inicio;
 
     //se o peso do cover ja foi avaliado, retorna ele pra evitar ser recomputado
-    if(node->peso != -1){
-        return node->peso;
+    if(pai->peso != -1){
+        return pai->peso;
     }
 
     //se nao tem filhos, o peso do vertex cover é 0
     if(lista_node->num_elementos <= 1){
-        node->peso = 0;
-        return node->peso;
+        pai->peso = 0;
+        return pai->peso;
+    }
+
+    //atualiza a lista dos filhos pra que eles nao tenham o pai como nó filho
+    node_t *filho = pai->prox;
+    while(filho != NULL){
+        remove_no(arvore->lista_adj[filho->id], pos_pai);
+        filho = filho->prox;
     }
 
     //calcula o peso do cover quando o no faz parte da resposta
     int peso1 = 1; //contagem da participacao do no
-    node_t *filho = node->prox;
+    filho = pai->prox;
     while (filho != NULL){ //contagem da participacao dos filhos
         peso1 += vertex_cover_arvore(filho->id, arvore);
         filho = filho->prox;
@@ -37,7 +44,7 @@ int vertex_cover_arvore(int pos_node, arvore_t *arvore){
 
     //calcula o peso do cover quando o no nao faz parte da resposta
     int peso2 = 0;
-    filho = node->prox;
+    filho = pai->prox;
     while (filho != NULL){ //contagem da participacao dos filhos (todos participam) e dos netos
         lista_t *lista_filho = arvore->lista_adj[filho->id];
         node_t *neto =  lista_filho->inicio->prox;
@@ -50,9 +57,9 @@ int vertex_cover_arvore(int pos_node, arvore_t *arvore){
     }
 
     //guarda o menor valor calculado dos covers como o peso do no
-    node->peso = min(peso1,peso2);
+    pai->peso = min(peso1,peso2);
 
-    return node->peso;
+    return pai->peso;
 }
 
 void vertex_cover_grafo(grafo_t *grafo){

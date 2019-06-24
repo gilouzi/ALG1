@@ -22,15 +22,12 @@ arvore_t *cria_arvore(int quant_vert){
 }
 
 void insere_arvore(arvore_t *arvore, int id_1, int id_2){
-    //sempre o vertice menor vai apontar para os vertices maiores
-    if(id_1 < id_2){
-        lista_t *lista_id1 = arvore->lista_adj[id_1];
-        insere_no(lista_id1,id_2,-1);
-    }
-    else{
-        lista_t *lista_id2 = arvore->lista_adj[id_2];
-        insere_no(lista_id2,id_1,-1);
-    }
+    
+    lista_t *lista_id1 = arvore->lista_adj[id_1];
+    insere_no(lista_id1,id_2,-1);
+
+    lista_t *lista_id2 = arvore->lista_adj[id_2];
+    insere_no(lista_id2,id_1,-1);
 }
 
 void print_arvore(arvore_t *arvore){

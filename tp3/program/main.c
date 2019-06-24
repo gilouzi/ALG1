@@ -28,7 +28,6 @@ int main(int argc, const char **argv) {
 
         int resultado = vertex_cover_arvore(0,arvore);
         printf("%d\n",resultado);
-        print_arvore(arvore);
 
         destroi_arvore(arvore);
     }
